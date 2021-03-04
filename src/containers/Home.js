@@ -3,38 +3,57 @@ import React from "react";
 import { useEffect, useState } from "react";
 import strapi from "../api/strapi";
 
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Image from "react-bootstrap/Image";
+
 const Home = () => {
-  const [content, setContent] = useState([]);
+  const [images, setImages] = useState([]);
+  const [about, setAbout] = useState("");
   const [error, setError] = useState("");
 
-  const searchApi = async () => {
+  const getImages = async () => {
     try {
       const response = await strapi.get("/home-images", {
         params: {},
       });
       const images = response.data.map((obj) => obj["main_image_content"][0]);
-      setContent(images);
+      setImages(images);
+    } catch (err) {
+      setError(`Something went wrong...`);
+    }
+  };
+
+  const getAbout = async () => {
+    try {
+      const response = await strapi.get("/about", {
+        params: {},
+      });
+      setAbout(response["data"]["about_content"]);
     } catch (err) {
       setError(`Something went wrong...`);
     }
   };
 
   useEffect(() => {
-    searchApi();
+    getImages();
+    getAbout();
   }, []);
 
   return (
-    <div className="App">
+    <Container className="home">
       {error ? error : null}
-      <p> home container </p>
-      {content
-        ? content.map((image) => {
-            let url = `${strapi.defaults.baseURL}${image["url"]}`;
-            console.log(url);
-            return <img src={url} alt={image["name"]} />;
-          })
-        : null}
-    </div>
+      <Row>home container</Row>
+      <Row>
+        {images
+          ? images.map((image) => {
+              let url = `${strapi.defaults.baseURL}${image["url"]}`;
+              return <Image src={url} alt={image["name"]} />;
+            })
+          : null}
+      </Row>
+      <Row>{about}</Row>
+    </Container>
   );
 };
 
