@@ -7,7 +7,7 @@ const Home = () => {
   const [content, setContent] = useState([]);
   const [error, setError] = useState("");
 
-  const searchApi = async (searchTerm) => {
+  const searchApi = async () => {
     try {
       const response = await strapi.get("/home-images", {
         params: {},
@@ -24,10 +24,16 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className="App">
       {error ? error : null}
-      home container
-      {console.log(content, "content")}
+      <p> home container </p>
+      {content
+        ? content.map((image) => {
+            let url = `${strapi.defaults.baseURL}${image["url"]}`;
+            console.log(url);
+            return <img src={url} alt={image["name"]} />;
+          })
+        : null}
     </div>
   );
 };
