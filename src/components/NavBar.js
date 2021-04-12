@@ -16,12 +16,12 @@ const NavBar = (props) => {
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="link-2" href="/what_i_do">
+            <Nav.Link eventKey="link-2" href="/how_it_works">
               How It Works
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="link-3" href="/what_i_do">
+            <Nav.Link eventKey="link-3" href="/pricing">
               Pricing
             </Nav.Link>
           </Nav.Item>
