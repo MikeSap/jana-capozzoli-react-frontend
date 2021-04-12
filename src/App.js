@@ -21,9 +21,23 @@ const App = () => {
         />
         <Route
           exact
-          path="/work_with_me"
+          path="/what_i_do"
           render={() => {
-            return <div>Work With Me</div>;
+            return <div>What I Do</div>;
+          }}
+        />
+        <Route
+          exact
+          path="/how_it_works"
+          render={() => {
+            return <div>How it Works</div>;
+          }}
+        />
+        <Route
+          exact
+          path="/pricing"
+          render={() => {
+            return <div>Pricing</div>;
           }}
         />
         <Route
